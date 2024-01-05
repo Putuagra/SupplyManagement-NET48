@@ -50,9 +50,8 @@ namespace SupplyManagement_NET48.Services
             var getAccountRole = _accountRoleRepository.GetByGuid(accountRoleUpdate.Guid);
             if (getAccountRole == null) return 0;
 
-            getAccountRole.Guid = getAccountRole.Guid;
-            getAccountRole.AccountGuid = getAccountRole.AccountGuid;
-            getAccountRole.RoleGuid = getAccountRole.RoleGuid;
+            getAccountRole.AccountGuid = accountRoleUpdate.AccountGuid;
+            getAccountRole.RoleGuid = accountRoleUpdate.RoleGuid;
             getAccountRole.ModifiedDate = DateTime.Now;
 
             var isUpdate = _accountRoleRepository.Update(getAccountRole);
