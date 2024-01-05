@@ -1,0 +1,49 @@
+﻿@model SupplyManagement_NET48.Models.AccountRole
+
+@{
+    ViewBag.Title = "Details";
+    var employees = (List<SupplyManagement_NET48.Models.Employee>)ViewData["Employees"];
+    var roles = (List<SupplyManagement_NET48.Models.Role>)ViewData["Roles"];
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>AccountRole</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayName("Employee Name")
+        </dt>
+
+        <dd>
+            @foreach (var employee in employees)
+            {
+                if (employee.Guid == Model.AccountGuid)
+                {
+                    @employee.FirstName
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Role Name")
+        </dt>
+
+        <dd>
+            @foreach (var role in roles)
+            {
+                if (role.Guid == Model.RoleGuid)
+                {
+                    @role.Name
+                }
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Guid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

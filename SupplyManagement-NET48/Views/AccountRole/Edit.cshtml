@@ -1,0 +1,52 @@
+﻿@model SupplyManagement_NET48.Models.AccountRole
+
+@{
+    ViewBag.Title = "Edit";
+    var employees = (List<SupplyManagement_NET48.Models.Employee>)ViewData["Employees"];
+    var roles = (List<SupplyManagement_NET48.Models.Role>)ViewData["Roles"];
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>AccountRole</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Guid)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.AccountGuid, "AccountGuid", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("AccountGuid", new SelectList(employees, "Guid", "FirstName"), "Select Account", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.AccountGuid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoleGuid, "RoleGuid", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("RoleGuid", new SelectList(roles, "Guid", "Name"), "Select Role", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RoleGuid, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

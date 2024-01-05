@@ -1,0 +1,54 @@
+﻿@model SupplyManagement_NET48.Models.AccountRole
+
+@{
+    ViewBag.Title = "Delete";
+    var employees = (List<SupplyManagement_NET48.Models.Employee>)ViewData["Employees"];
+    var roles = (List<SupplyManagement_NET48.Models.Role>)ViewData["Roles"];
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>AccountRole</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Employee Name")
+        </dt>
+
+        <dd>
+            @foreach (var employee in employees)
+            {
+                if (employee.Guid == Model.AccountGuid)
+                {
+                    @employee.FirstName
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Role Name")
+        </dt>
+
+        <dd>
+            @foreach (var role in roles)
+            {
+                if (role.Guid == Model.RoleGuid)
+                {
+                    @role.Name
+                }
+            }
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

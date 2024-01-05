@@ -176,9 +176,11 @@
     <Compile Include="Contracts\IRoleRepository.cs" />
     <Compile Include="Contracts\IVendorRepository.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountRoleController.cs" />
     <Compile Include="Controllers\AccountVendorController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="DataTransferObjects\Accounts\AccountDtoRegister.cs" />
@@ -211,9 +213,11 @@
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\VendorRepository.cs" />
+    <Compile Include="Services\AccountRoleService.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\AccountVendorService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="Services\VendorService.cs" />
   </ItemGroup>
@@ -295,6 +299,16 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\AccountRole\Create.cshtml" />
+    <Content Include="Views\AccountRole\Delete.cshtml" />
+    <Content Include="Views\AccountRole\Details.cshtml" />
+    <Content Include="Views\AccountRole\Edit.cshtml" />
+    <Content Include="Views\AccountRole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

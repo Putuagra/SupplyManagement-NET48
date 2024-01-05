@@ -1,0 +1,49 @@
+﻿@model SupplyManagement_NET48.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+    var vendors = (List<SupplyManagement_NET48.Models.Vendor>)ViewData["Vendors"];
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Vendor.Name)
+        </dt>
+
+        <dd>
+            @foreach (var vendor in vendors)
+            {
+                if (vendor.Guid == Model.VendorGuid)
+                {
+                    @vendor.Name
+                }
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Guid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<SupplyManagement_NET48.Models.AccountRole>
+
+@{
+    ViewBag.Title = "Index";
+    var employees = (List<SupplyManagement_NET48.Models.Employee>)ViewData["Employees"];
+    var roles = (List<SupplyManagement_NET48.Models.Role>)ViewData["Roles"];
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Employee Name")
+        </th>
+        <th>
+            @Html.DisplayName("Role Name")
+        </th>
+        <th></th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @foreach (var employee in employees)
+                    {
+                        if (employee.Guid == item.AccountGuid)
+                        {
+                            @employee.FirstName
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var role in roles)
+                    {
+                        if (role.Guid == item.RoleGuid)
+                        {
+                            @role.Name
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Guid }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Guid }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <p>No data available.</p>
+    }
+</table>
