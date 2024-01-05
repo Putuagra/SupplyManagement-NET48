@@ -16,9 +16,9 @@ namespace SupplyManagement_NET48
             );
 
             routes.MapRoute(
-                name: "Role",
+                name: "Roles",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Role", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Roles", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

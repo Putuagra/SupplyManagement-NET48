@@ -178,6 +178,7 @@
     <Compile Include="Contracts\IVendorRepository.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="DataTransferObjects\Roles\RoleDtoCreate.cs" />
     <Compile Include="DataTransferObjects\Roles\RoleDtoGet.cs" />
     <Compile Include="Data\SupplyManagementDbContext.cs" />
@@ -261,6 +262,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
