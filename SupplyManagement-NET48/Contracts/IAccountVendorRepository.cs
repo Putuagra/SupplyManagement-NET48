@@ -2,7 +2,7 @@
 
 namespace SupplyManagement_NET48.Contracts
 {
-    internal interface IAccountVendorRepository : IGeneralRepository<AccountVendor>
+    public interface IAccountVendorRepository : IGeneralRepository<AccountVendor>
     {
     }
 }

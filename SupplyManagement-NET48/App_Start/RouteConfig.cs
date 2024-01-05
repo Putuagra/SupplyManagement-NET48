@@ -16,9 +16,33 @@ namespace SupplyManagement_NET48
             );
 
             routes.MapRoute(
-                name: "Roles",
+                name: "Role",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Roles", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Role", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Vendor",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Vendor", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Employee",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Employee", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "AccountVendor",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "AccountVendor", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Account",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Account", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

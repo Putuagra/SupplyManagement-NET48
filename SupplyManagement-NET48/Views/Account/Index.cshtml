@@ -1,0 +1,79 @@
+﻿@model IEnumerable<SupplyManagement_NET48.Models.Account>
+
+@{
+    ViewBag.Title = "Index";
+    var employees = (List<SupplyManagement_NET48.Models.Employee>)ViewData["Employees"];
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("Register", "Register")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @foreach (var employee in employees)
+                    {
+                        if(employee.Guid == item.Guid)
+                        {
+                            @employee.FirstName
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var employee in employees)
+                    {
+                        if (employee.Guid == item.Guid)
+                        {
+                            @employee.LastName
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (var employee in employees)
+                    {
+                        if (employee.Guid == item.Guid)
+                        {
+                            @employee.Email
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Guid }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Guid }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <p>No data available.</p>
+    }
+</table>

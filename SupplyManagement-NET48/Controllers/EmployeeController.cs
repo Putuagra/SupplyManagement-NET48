@@ -6,68 +6,67 @@ using System.Web.Mvc;
 
 namespace SupplyManagement_NET48.Controllers
 {
-    public class RoleController : Controller
+    public class EmployeeController : Controller
     {
-        private readonly RoleService _roleService;
+        private readonly EmployeeService _employeeService;
 
-        public RoleController(RoleService roleService)
+        public EmployeeController(EmployeeService employeeService)
         {
-            _roleService = roleService;
+            _employeeService = employeeService;
         }
 
-        // GET: Role
+        // GET: Employee
         public ActionResult Index()
         {
-            var roles = _roleService.Get();
-            return View(roles);
+            var employees = _employeeService.Get();
+            return View(employees);
         }
 
-        // GET: Role/Details/5
+        // GET: Employee/Details/5
         public ActionResult Details(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var employee = _employeeService.Get(id);
+            if (employee == null) return HttpNotFound();
+            return View(employee);
         }
 
-        // GET: Role/Create
+        // GET: Employee/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Role/Create
+        // POST: Employee/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Role role)
+        public ActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                _roleService.Create(role);
+                _employeeService.Create(employee);
                 return RedirectToAction("Index");
             }
-
-            return View(role);
+            return View(employee);
         }
 
-        // GET: Role/Edit/5
+        // GET: Employee/Edit/5
         public ActionResult Edit(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var employee = _employeeService.Get(id);
+            if (employee == null) return HttpNotFound();
+            return View(employee);
         }
 
-        // POST: Role/Edit/5
+        // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Role role)
+        public ActionResult Edit(Employee employee)
         {
             if (ModelState.IsValid)
             {
-                var result = _roleService.Update(role);
+                var result = _employeeService.Update(employee);
 
                 if (result == 1)
                 {
@@ -78,25 +77,24 @@ namespace SupplyManagement_NET48.Controllers
                     return HttpNotFound();
                 }
             }
-
-            return View(role);
+            return View(employee);
         }
 
-        // GET: Role/Delete/5
+        // GET: Employee/Delete/5
         public ActionResult Delete(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var employee = _employeeService.Get(id);
+            if (employee == null) return HttpNotFound();
+            return View(employee);
         }
 
-        // POST: Role/Delete/5
+        // POST: Employee/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            var result = _roleService.Delete(id);
+            var result = _employeeService.Delete(id);
 
             if (result == 1)
             {

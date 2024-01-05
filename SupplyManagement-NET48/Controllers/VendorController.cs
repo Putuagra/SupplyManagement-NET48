@@ -6,68 +6,67 @@ using System.Web.Mvc;
 
 namespace SupplyManagement_NET48.Controllers
 {
-    public class RolesController : Controller
+    public class VendorController : Controller
     {
-        private readonly RoleService _roleService;
-
-        public RolesController(RoleService roleService)
+        private readonly VendorService _vendorService;
+        public VendorController(VendorService vendorService)
         {
-            _roleService = roleService;
+            _vendorService = vendorService;
         }
 
-        // GET: Roles
+        // GET: Vendors
         public ActionResult Index()
         {
-            var roles = _roleService.Get();
-            return View(roles);
+            var vendors = _vendorService.Get();
+            return View(vendors);
         }
 
-        // GET: Roles/Details/5
+        // GET: Vendors/Details/5
         public ActionResult Details(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var vendor = _vendorService.Get(id);
+            if (vendor == null) return HttpNotFound();
+            return View(vendor);
         }
 
-        // GET: Roles/Create
+        // GET: Vendors/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Vendors/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Role role)
+        public ActionResult Create(Vendor vendor)
         {
             if (ModelState.IsValid)
             {
-                _roleService.Create(role);
+                _vendorService.Create(vendor);
                 return RedirectToAction("Index");
             }
 
-            return View(role);
+            return View(vendor);
         }
 
-        // GET: Roles/Edit/5
+        // GET: Vendors/Edit/5
         public ActionResult Edit(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var vendor = _vendorService.Get(id);
+            if (vendor == null) return HttpNotFound();
+            return View(vendor);
         }
 
-        // POST: Roles/Edit/5
+        // POST: Vendors/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Role role)
+        public ActionResult Edit(Vendor vendor)
         {
             if (ModelState.IsValid)
             {
-                var result = _roleService.Update(role);
+                var result = _vendorService.Update(vendor);
 
                 if (result == 1)
                 {
@@ -77,27 +76,42 @@ namespace SupplyManagement_NET48.Controllers
                 {
                     return HttpNotFound();
                 }
+                else
+                {
+                    return View("Error");
+                }
             }
-
-            return View(role);
+            return View(vendor);
         }
 
-        // GET: Roles/Delete/5
+        // GET: Vendors/Delete/5
         public ActionResult Delete(Guid id)
         {
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var role = _roleService.Get(id);
-            if (role == null) return HttpNotFound();
-            return View(role);
+            var vendor = _vendorService.Get(id);
+            if (vendor == null) return HttpNotFound();
+            return View(vendor);
         }
 
-        // POST: Roles/Delete/5
+        // POST: Vendors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            _roleService.Delete(id);
-            return RedirectToAction("Index");
+            var result = _vendorService.Delete(id);
+
+            if (result == 1)
+            {
+                return RedirectToAction("Index");
+            }
+            else if (result == 0)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View("Error");
+            }
         }
 
         /*protected override void Dispose(bool disposing)

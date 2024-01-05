@@ -24,7 +24,6 @@ namespace SupplyManagement_NET48.Repositories
         public TEntity GetByGuid(Guid guid)
         {
             var entity = Context.Set<TEntity>().Find(guid);
-            Context.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 

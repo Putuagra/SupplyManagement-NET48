@@ -13,9 +13,16 @@ namespace SupplyManagement_NET48.App_Start
         {
             var container = new UnityContainer();
 
-            // Registrasi layanan di sini
+            container.RegisterType<IAccountRepository, AccountRepository>();
+            container.RegisterType<AccountService>();
+            container.RegisterType<IAccountVendorRepository, AccountVendorRepository>();
+            container.RegisterType<AccountVendorService>();
+            container.RegisterType<IEmployeeRepository, EmployeeRepository>();
+            container.RegisterType<EmployeeService>();
             container.RegisterType<IRoleRepository, RoleRepository>();
             container.RegisterType<RoleService>();
+            container.RegisterType<IVendorRepository, VendorRepository>();
+            container.RegisterType<VendorService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
