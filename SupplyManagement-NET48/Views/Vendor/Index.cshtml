@@ -1,14 +1,17 @@
 ﻿@model IEnumerable<SupplyManagement_NET48.Models.Vendor>
 
 @{
+    string userRole = ViewBag.UserRole;
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (userRole == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
 <table class="table">
     <tr>
@@ -19,9 +22,6 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.PhotoProfile)
         </th>
         <th>
@@ -30,6 +30,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Type)
         </th>
+        <th>Admin Approve</th>
+        <th>Manager Approve</th>
         <th></th>
     </tr>
     @if (Model != null)
@@ -44,10 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhotoProfile)
+                    <img src="@Url.Content(item.PhotoProfile)" width="80" height="50" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sector)
@@ -56,9 +55,58 @@
                     @Html.DisplayFor(modelItem => item.Type)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Guid }) |
+                    @if (item.IsAdminApprove)
+                    {
+                        <span>Approved by Admin</span>
+                    }
+                    else
+                    {
+                        <span>Not Approved</span>
+                    }
+                </td>
+                <td>
+                    @if (item.IsManagerApprove)
+                    {
+                        <span>Approved by Manager</span>
+                    }
+                    else
+                    {
+                        <span>Not Approved</span>
+                    }
+                </td>
+                <td>
+                    @if (userRole == "Admin" || userRole == "Vendor")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Guid })
+                    }
+                    |
                     @Html.ActionLink("Details", "Details", new { id = item.Guid }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                    @if (userRole == "Admin")
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                    }
+                    @if (userRole == "Admin")
+                    {
+                        using (Html.BeginForm("AdminApprove", "Vendor", new { guid = item.Guid }, FormMethod.Post, new { @class = "d-inline-block" }))
+                        {
+                            <button type="submit" class="btn btn-sm btn-success m-1">Approve</button>
+                        }
+                        using (Html.BeginForm("AdminReject", "Vendor", new { guid = item.Guid }, FormMethod.Post, new { @class = "d-inline-block" }))
+                        {
+                            <button type="submit" class="btn btn-sm btn-danger m-1">Reject</button>
+                        }
+                    }
+                    @if (userRole == "Manager" && item.IsAdminApprove)
+                    {
+                        using (Html.BeginForm("ManagerApprove", "Vendor", new { guid = item.Guid }, FormMethod.Post, new { @class = "d-inline-block" }))
+                        {
+                            <button type="submit" class="btn btn-sm btn-success m-1">Approve</button>
+                        }
+                        using (Html.BeginForm("ManagerReject", "Vendor", new { guid = item.Guid }, FormMethod.Post, new { @class = "d-inline-block" }))
+                        {
+                            <button type="submit" class="btn btn-sm btn-danger m-1">Reject</button>
+                        }
+                    }
                 </td>
             </tr>
         }

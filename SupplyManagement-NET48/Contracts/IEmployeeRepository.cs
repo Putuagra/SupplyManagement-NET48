@@ -4,5 +4,6 @@ namespace SupplyManagement_NET48.Contracts
 {
     public interface IEmployeeRepository : IGeneralRepository<Employee>
     {
+        Employee GetByEmail(string email);
     }
 }

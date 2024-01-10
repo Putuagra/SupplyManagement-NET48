@@ -2,6 +2,7 @@
 using SupplyManagement_NET48.Data;
 using SupplyManagement_NET48.DataTransferObjects.Accounts;
 using SupplyManagement_NET48.Models;
+using SupplyManagement_NET48.Utilities.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,7 +92,7 @@ namespace SupplyManagement_NET48.Services
                 var account = new Account
                 {
                     Guid = employee.Guid,
-                    Password = registerDto.Password,
+                    Password = HashingHandler.Hash(registerDto.Password),
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                 };

@@ -7,10 +7,10 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(Html.BeginForm("Edit", "Vendor", FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Vendor</h4>
         <hr />
@@ -44,8 +44,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PhotoProfile, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PhotoProfile, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PhotoProfile, "", new { @class = "text-danger" })
+                <img src="@Url.Content(Session["imgPath"].ToString())" width="80" height="50" />
+                <input type="file" name="ImageFile" accept=".jpg,.jpeg,.png" />
             </div>
         </div>
 

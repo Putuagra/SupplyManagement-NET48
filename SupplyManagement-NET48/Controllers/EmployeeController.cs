@@ -1,11 +1,15 @@
 ﻿using SupplyManagement_NET48.Models;
 using SupplyManagement_NET48.Services;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace SupplyManagement_NET48.Controllers
 {
+    /*[Authorize]*/
     public class EmployeeController : Controller
     {
         private readonly EmployeeService _employeeService;
@@ -19,6 +23,16 @@ namespace SupplyManagement_NET48.Controllers
         public ActionResult Index()
         {
             var employees = _employeeService.Get();
+            var token = Request.Cookies["AuthToken"]?.Value;
+            var handler = new JwtSecurityTokenHandler();
+            if (token != null)
+            {
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                var roleClaim = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role || claim.Type == "Role")?.Value;
+
+                ViewBag.UserRole = roleClaim;
+            }
             return View(employees);
         }
 

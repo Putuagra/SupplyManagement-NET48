@@ -56,6 +56,12 @@ namespace SupplyManagement_NET48
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "AccountRole", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Auth",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Auth", action = "Login", id = UrlParameter.Optional }
+            );
         }
     }
 }

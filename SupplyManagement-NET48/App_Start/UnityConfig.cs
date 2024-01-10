@@ -1,6 +1,7 @@
 ﻿using SupplyManagement_NET48.Contracts;
 using SupplyManagement_NET48.Repositories;
 using SupplyManagement_NET48.Services;
+using SupplyManagement_NET48.Utilities.Handlers;
 using System.Web.Mvc;
 using Unity;
 using Unity.AspNet.Mvc;
@@ -27,6 +28,8 @@ namespace SupplyManagement_NET48.App_Start
             container.RegisterType<RoleService>();
             container.RegisterType<IVendorRepository, VendorRepository>();
             container.RegisterType<VendorService>();
+            container.RegisterType<ITokenHandler, TokenHandler>();
+            container.RegisterType<AuthService>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

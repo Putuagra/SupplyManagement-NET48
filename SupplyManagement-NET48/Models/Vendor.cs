@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web;
 
 namespace SupplyManagement_NET48.Models
 {
@@ -22,6 +23,8 @@ namespace SupplyManagement_NET48.Models
         public bool IsAdminApprove { get; set; }
         [Column("is_manager_approve")]
         public bool IsManagerApprove { get; set; }
+        [NotMapped]
+        public HttpPostedFileBase ImageFile { get; set; }
 
         // Cardinality
         public AccountVendor AccountVendor { get; set; }

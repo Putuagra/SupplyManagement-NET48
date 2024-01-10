@@ -2,13 +2,17 @@
 
 @{
     ViewBag.Title = "Index";
+    string userRole = ViewBag.UserRole;
 }
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (userRole == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
 
 <table class="table">
     <tr>
@@ -26,9 +30,14 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Guid }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Guid }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                    @if (userRole == "Admin")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Guid })
+                        <span> | </span>
+                        @Html.ActionLink("Details", "Details", new { id = item.Guid })
+                        <span> | </span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Guid })
+                    }
                 </td>
             </tr>
         }

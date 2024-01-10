@@ -1,4 +1,5 @@
 ﻿using SupplyManagement_NET48.Contracts;
+using SupplyManagement_NET48.DataTransferObjects.Vendors;
 using SupplyManagement_NET48.Models;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,16 @@ namespace SupplyManagement_NET48.Services
 
         public Vendor Get(Guid guid)
         {
-            var role = _vendorRepository.GetByGuid(guid);
-            if (role is null) return null;
-            return role;
+            var vendor = _vendorRepository.GetByGuid(guid);
+            if (vendor is null) return null;
+            return vendor;
+        }
+
+        public VendorDtoGet GetDto(Guid guid)
+        {
+            var vendor = _vendorRepository.GetByGuid(guid);
+            if (vendor is null) return null;
+            return (VendorDtoGet)vendor;
         }
 
         public Vendor Create(Vendor vendorCreate)
@@ -63,8 +71,6 @@ namespace SupplyManagement_NET48.Services
             getVendor.PhotoProfile = vendorUpdate.PhotoProfile;
             getVendor.Sector = vendorUpdate.Sector;
             getVendor.Type = vendorUpdate.Type;
-            getVendor.IsManagerApprove = vendorUpdate.IsManagerApprove;
-            getVendor.IsAdminApprove = vendorUpdate.IsAdminApprove;
 
             var isUpdate = _vendorRepository.Update(getVendor);
 
@@ -77,6 +83,58 @@ namespace SupplyManagement_NET48.Services
             if (vendor == null) return 0;
             var isDelete = _vendorRepository.Delete(vendor);
             return isDelete ? 1 : 0;
+        }
+
+        public int AdminApprove(Guid guid)
+        {
+            var getVendor = _vendorRepository.GetByGuid(guid);
+            if (getVendor == null) return 0;
+
+            getVendor.ModifiedDate = DateTime.Now;
+            getVendor.IsAdminApprove = true;
+
+            var isUpdate = _vendorRepository.Update(getVendor);
+
+            return isUpdate ? 1 : 0;
+        }
+
+        public int AdminReject(Guid guid)
+        {
+            var getVendor = _vendorRepository.GetByGuid(guid);
+            if (getVendor == null) return 0;
+
+            getVendor.ModifiedDate = DateTime.Now;
+            getVendor.IsAdminApprove = false;
+
+            var isUpdate = _vendorRepository.Update(getVendor);
+
+            return isUpdate ? 1 : 0;
+        }
+
+        public int ManagerApprove(Guid guid)
+        {
+            var getVendor = _vendorRepository.GetByGuid(guid);
+            if (getVendor == null) return 0;
+
+            getVendor.ModifiedDate = DateTime.Now;
+            getVendor.IsManagerApprove = true;
+
+            var isUpdate = _vendorRepository.Update(getVendor);
+
+            return isUpdate ? 1 : 0;
+        }
+
+        public int ManagerReject(Guid guid)
+        {
+            var getVendor = _vendorRepository.GetByGuid(guid);
+            if (getVendor == null) return 0;
+
+            getVendor.ModifiedDate = DateTime.Now;
+            getVendor.IsManagerApprove = false;
+
+            var isUpdate = _vendorRepository.Update(getVendor);
+
+            return isUpdate ? 1 : 0;
         }
     }
 }

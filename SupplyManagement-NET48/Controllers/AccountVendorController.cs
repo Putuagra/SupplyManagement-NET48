@@ -1,12 +1,15 @@
-﻿using SupplyManagement_NET48.DataTransferObjects.AccountVendors;
-using SupplyManagement_NET48.Models;
+﻿using SupplyManagement_NET48.Models;
 using SupplyManagement_NET48.Services;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Web.Mvc;
 
 namespace SupplyManagement_NET48.Controllers
 {
+    /*[Authorize]*/
     public class AccountVendorController : Controller
     {
         private readonly AccountVendorService _accountVendorService;
@@ -24,6 +27,16 @@ namespace SupplyManagement_NET48.Controllers
             var accountVendors = _accountVendorService.Get();
             var vendors = _vendorService.Get();
             ViewData["Vendors"] = vendors;
+            var token = Request.Cookies["AuthToken"]?.Value;
+            var handler = new JwtSecurityTokenHandler();
+            if (token != null)
+            {
+                var jsonToken = handler.ReadToken(token) as JwtSecurityToken;
+
+                var roleClaim = jsonToken.Claims.FirstOrDefault(claim => claim.Type == ClaimTypes.Role || claim.Type == "Role")?.Value;
+
+                ViewBag.UserRole = roleClaim;
+            }
             return View(accountVendors);
         }
 
@@ -113,29 +126,6 @@ namespace SupplyManagement_NET48.Controllers
             {
                 return View("Error");
             }
-        }
-
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Register(AccountVendorDtoRegister registerDto)
-        {
-            if (ModelState.IsValid)
-            {
-                if (_accountVendorService.Register(registerDto))
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Registration failed. Please try again.");
-                }
-            }
-
-            return View(registerDto);
         }
 
         /*protected override void Dispose(bool disposing)
